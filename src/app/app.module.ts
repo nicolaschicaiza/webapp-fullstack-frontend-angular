@@ -6,6 +6,19 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { DirectivaComponent } from './directiva/directiva.component';
 import { ClientsComponent } from './clients/clients.component';
+import { RouterModule, Routes } from '@angular/router';
+
+const routes: Routes = [
+  {
+    path: '', redirectTo: '/clients', pathMatch: 'full'
+  },
+  {
+    path: 'directivas', component: DirectivaComponent
+  },
+  {
+    path: 'clients', component: ClientsComponent
+  }
+]
 
 @NgModule({
   declarations: [
@@ -16,6 +29,7 @@ import { ClientsComponent } from './clients/clients.component';
     ClientsComponent
   ],
   imports: [
+    RouterModule.forRoot(routes),
     BrowserModule
   ],
   providers: [],
