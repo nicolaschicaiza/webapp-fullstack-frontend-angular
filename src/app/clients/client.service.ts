@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Client } from './client';
-import { Observable, of } from 'rxjs';
+import { Observable, map, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -13,7 +13,8 @@ export class ClientService {
   constructor(private http: HttpClient) { }
 
   getClients(): Observable<Client[]> {
-    // return of(CLIENTS);
-    return this.http.get<Client[]>(this.urlEndPonit);
+    return this.http.get<Client[]>(this.urlEndPonit).pipe(
+      map((rta) => rta as Client[])
+    );
   }
 }
