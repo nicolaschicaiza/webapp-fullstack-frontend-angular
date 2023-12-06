@@ -34,7 +34,7 @@ export class FormComponent implements OnInit {
   }
 
   create(): void {
-    this.clientService.create(this.client).subscribe({
+    this.clientService.createClient(this.client).subscribe({
       next: (client) => {
         this.router.navigate(['/clients']);
         Swal.fire(

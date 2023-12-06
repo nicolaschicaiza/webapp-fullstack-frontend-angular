@@ -35,9 +35,17 @@
               type="button"
               name="button"
               [routerLink]="['/clients/form', client.id]"
-              class="btn btn-primary"
+              class="btn btn-primary me-2"
             >
               Editar
+            </button>
+            <button
+              type="button"
+              name="button"
+              (click)="delete(client)"
+              class="btn btn-danger"
+            >
+              Eliminar
             </button>
           </td>
         </tr>

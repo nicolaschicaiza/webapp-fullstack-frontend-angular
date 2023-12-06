@@ -18,7 +18,7 @@ export class ClientService {
       .pipe(map((rta) => rta as Client[]));
   }
 
-  create(client: Client): Observable<Client> {
+  createClient(client: Client): Observable<Client> {
     return this.http.post<Client>(this.urlEndPoint, client, {
       headers: this.httpHeaders,
     });
@@ -30,6 +30,12 @@ export class ClientService {
 
   updateClient(client: Client): Observable<Client> {
     return this.http.put<Client>(`${this.urlEndPoint}/${client.id}`, client, {
+      headers: this.httpHeaders,
+    });
+  }
+
+  deleteClient(id: number): Observable<Client> {
+    return this.http.delete<Client>(`${this.urlEndPoint}/${id}`, {
       headers: this.httpHeaders,
     });
   }
