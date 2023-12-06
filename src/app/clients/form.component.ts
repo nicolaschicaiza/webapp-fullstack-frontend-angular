@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import Swal from 'sweetalert2';
 import { Client } from './client';
 import { ClientService } from './client.service';
 
@@ -18,7 +19,14 @@ export class FormComponent {
 
   create(): void {
     this.clientService.create(this.client).subscribe({
-      next: () => this.router.navigate(['/clients']),
+      next: (client) => {
+        this.router.navigate(['/clients']);
+        Swal.fire(
+          'Nuevo cliente',
+          `Cliente ${client.name} creado con éxito!`,
+          'success',
+        );
+      },
     });
   }
 }
