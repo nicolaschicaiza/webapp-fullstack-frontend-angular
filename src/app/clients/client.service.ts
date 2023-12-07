@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { Client } from './client';
-import { Observable, map } from 'rxjs';
+import { Observable, map, catchError, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root',
@@ -10,7 +12,10 @@ export class ClientService {
   private urlEndPoint: string = 'http://localhost:8080/api/clients';
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
 
-  constructor(private http: HttpClient) {}
+  constructor(
+    private http: HttpClient,
+    private router: Router,
+  ) {}
 
   getClients(): Observable<Client[]> {
     return this.http
@@ -25,7 +30,14 @@ export class ClientService {
   }
 
   getClient(id: number): Observable<Client> {
-    return this.http.get<Client>(`${this.urlEndPoint}/${id}`);
+    return this.http.get<Client>(`${this.urlEndPoint}/${id}`).pipe(
+      catchError((e) => {
+        this.router.navigate(['/clients']);
+        console.error(e.error.mensaje);
+        Swal.fire('Error al editar', e.error.mensaje, 'error');
+        return throwError(e);
+      }),
+    );
   }
 
   updateClient(client: Client): Observable<Client> {
