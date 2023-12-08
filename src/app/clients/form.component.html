@@ -1,8 +1,10 @@
-<ul class="alert alert-danger" *ngIf="errors?.length > 0">
-  <li *ngFor="let err of errors">
-    {{ err }}
-  </li>
-</ul>
+<div class="alert alert-danger" *ngIf="errors?.length > 0">
+  <ul>
+    <li *ngFor="let err of errors">
+      {{ err }}
+    </li>
+  </ul>
+</div>
 
 <div class="card bg-dark text-white">
   <div class="card-header">{{ title }}</div>
