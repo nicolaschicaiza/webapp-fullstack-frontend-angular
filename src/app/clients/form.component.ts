@@ -43,12 +43,12 @@ export class FormComponent implements OnInit {
 
   create(): void {
     this.clientService.createClient(this.client).subscribe({
-      next: (json) => {
-        console.log(json);
+      next: (client) => {
+        console.log(client);
         this.router.navigate(['/clients']);
         Swal.fire(
           'Nuevo cliente',
-          `${json.mensaje}: ${json.client.name}`,
+          `El cliente ${client.name} ha sido creado con éxito`,
           'success',
         );
       },
@@ -57,11 +57,11 @@ export class FormComponent implements OnInit {
 
   update(): void {
     this.clientService.updateClient(this.client).subscribe({
-      next: (json) => {
+      next: (client) => {
         this.router.navigate(['/clients']);
         Swal.fire(
           'Cliente actualizado',
-          `${json.mensaje}: ${json.client.name}`,
+          `El cliente ${client.name} ha sido actualizado con éxito`,
           'success',
         );
       },

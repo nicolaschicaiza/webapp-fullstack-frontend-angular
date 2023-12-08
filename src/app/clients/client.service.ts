@@ -23,12 +23,13 @@ export class ClientService {
       .pipe(map((rta) => rta as Client[]));
   }
 
-  createClient(client: Client): Observable<any> {
+  createClient(client: Client): Observable<Client> {
     return this.http
-      .post<any>(this.urlEndPoint, client, {
+      .post(this.urlEndPoint, client, {
         headers: this.httpHeaders,
       })
       .pipe(
+        map((response: any) => response.client as Client),
         catchError((e) => {
           console.error(e.error.mensaje);
           Swal.fire(e.error.mensaje, e.error.error, 'error');
@@ -48,12 +49,13 @@ export class ClientService {
     );
   }
 
-  updateClient(client: Client): Observable<any> {
+  updateClient(client: Client): Observable<Client> {
     return this.http
-      .put<any>(`${this.urlEndPoint}/${client.id}`, client, {
+      .put(`${this.urlEndPoint}/${client.id}`, client, {
         headers: this.httpHeaders,
       })
       .pipe(
+        map((reponse: any) => reponse.client as Client),
         catchError((e) => {
           console.error(e.error.mensaje);
           Swal.fire(e.error.mensaje, e.error.error, 'error');
