@@ -23,9 +23,9 @@ export class ClientService {
       .pipe(map((rta) => rta as Client[]));
   }
 
-  createClient(client: Client): Observable<Client> {
+  createClient(client: Client): Observable<any> {
     return this.http
-      .post<Client>(this.urlEndPoint, client, {
+      .post<any>(this.urlEndPoint, client, {
         headers: this.httpHeaders,
       })
       .pipe(
@@ -48,9 +48,9 @@ export class ClientService {
     );
   }
 
-  updateClient(client: Client): Observable<Client> {
+  updateClient(client: Client): Observable<any> {
     return this.http
-      .put<Client>(`${this.urlEndPoint}/${client.id}`, client, {
+      .put<any>(`${this.urlEndPoint}/${client.id}`, client, {
         headers: this.httpHeaders,
       })
       .pipe(

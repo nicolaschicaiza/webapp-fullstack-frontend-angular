@@ -22,6 +22,14 @@ export class FormComponent implements OnInit {
     this.uploadClient();
   }
 
+  onSubmit(): void {
+    if (this.client.id) {
+      this.update();
+      return;
+    }
+    this.create();
+  }
+
   uploadClient(): void {
     this.activatedRoute.params.subscribe((params) => {
       let id = params['id'];
@@ -35,11 +43,12 @@ export class FormComponent implements OnInit {
 
   create(): void {
     this.clientService.createClient(this.client).subscribe({
-      next: (client) => {
+      next: (json) => {
+        console.log(json);
         this.router.navigate(['/clients']);
         Swal.fire(
           'Nuevo cliente',
-          `Cliente ${client.name} creado con éxito!`,
+          `${json.mensaje}: ${json.client.name}`,
           'success',
         );
       },
@@ -48,11 +57,11 @@ export class FormComponent implements OnInit {
 
   update(): void {
     this.clientService.updateClient(this.client).subscribe({
-      next: (client) => {
+      next: (json) => {
         this.router.navigate(['/clients']);
         Swal.fire(
           'Cliente actualizado',
-          `Cliente ${client.name} actualizado con éxito!`,
+          `${json.mensaje}: ${json.client.name}`,
           'success',
         );
       },
