@@ -31,9 +31,12 @@ export class ClientService {
       .pipe(
         map((response: any) => response.client as Client),
         catchError((e) => {
+          if (e.status == 400) {
+            return throwError(() => e);
+          }
           console.error(e.error.mensaje);
           Swal.fire(e.error.mensaje, e.error.error, 'error');
-          return throwError(e);
+          return throwError(() => e);
         }),
       );
   }
@@ -44,7 +47,7 @@ export class ClientService {
         this.router.navigate(['/clients']);
         console.error(e.error.mensaje);
         Swal.fire('Error al editar', e.error.mensaje, 'error');
-        return throwError(e);
+        return throwError(() => e);
       }),
     );
   }
@@ -57,9 +60,12 @@ export class ClientService {
       .pipe(
         map((reponse: any) => reponse.client as Client),
         catchError((e) => {
+          if (e.status == 400) {
+            return throwError(() => e);
+          }
           console.error(e.error.mensaje);
           Swal.fire(e.error.mensaje, e.error.error, 'error');
-          return throwError(e);
+          return throwError(() => e);
         }),
       );
   }
@@ -73,7 +79,7 @@ export class ClientService {
         catchError((e) => {
           console.error(e.error.mensaje);
           Swal.fire(e.error.mensaje, e.error.error, 'error');
-          return throwError(e);
+          return throwError(() => e);
         }),
       );
   }

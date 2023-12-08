@@ -11,6 +11,7 @@ import { ClientService } from './client.service';
 export class FormComponent implements OnInit {
   client: Client = new Client();
   title: string = 'Crear cliente';
+  private errors: string[];
 
   constructor(
     private clientService: ClientService,
@@ -52,6 +53,11 @@ export class FormComponent implements OnInit {
           'success',
         );
       },
+      error: (err) => {
+        this.errors = err.error.errors as string[];
+        console.error('Código del error desde el backend: ' + err.status);
+        console.error(err.error.errors);
+      },
     });
   }
 
@@ -64,6 +70,11 @@ export class FormComponent implements OnInit {
           `El cliente ${client.name} ha sido actualizado con éxito`,
           'success',
         );
+      },
+      error: (err) => {
+        this.errors = err.error.errors as string[];
+        console.error('Código del error desde el backend: ' + err.status);
+        console.error(err.error.errors);
       },
     });
   }
