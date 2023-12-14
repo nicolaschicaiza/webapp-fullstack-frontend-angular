@@ -30,9 +30,9 @@
         <tr *ngFor="let client of clients">
           <td>{{ client.id }}</td>
           <td>{{ client.name }}</td>
-          <td>{{ client.lastname }}</td>
+          <td>{{ client.lastname | uppercase }}</td>
           <td>{{ client.email }}</td>
-          <td>{{ client.createAt }}</td>
+          <td>{{ client.createAt | date: "EEEE dd, MMMM yyy" }}</td>
           <td>
             <button
               type="button"
