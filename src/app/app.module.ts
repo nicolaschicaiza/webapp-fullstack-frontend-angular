@@ -30,6 +30,10 @@ const routes: Routes = [
     component: ClientsComponent,
   },
   {
+    path: 'clients/page/:page',
+    component: ClientsComponent,
+  },
+  {
     path: 'clients/form',
     component: FormComponent,
   },
