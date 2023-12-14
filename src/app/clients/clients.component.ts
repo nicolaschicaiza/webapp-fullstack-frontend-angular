@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ClientsComponent implements OnInit {
   clients: Client[] = [];
+  paginator: any;
 
   constructor(
     private clientService: ClientService,
@@ -28,10 +29,14 @@ export class ClientsComponent implements OnInit {
             (resp.content as Client[]).forEach((client) => {
               console.log(client.name);
             });
-            this.clients = resp.content as Client[];
           }),
         )
-        .subscribe();
+        .subscribe({
+          next: (resp) => {
+            this.clients = resp.content as Client[];
+            this.paginator = resp;
+          },
+        });
     });
   }
 
