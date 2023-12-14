@@ -4,8 +4,7 @@ import { Observable, map, catchError, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
-import { DatePipe, formatDate, registerLocaleData } from '@angular/common';
-import localeES from '@angular/common/locales/es-CO';
+import { DatePipe, formatDate } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +24,6 @@ export class ClientService {
         const clients = resp as Client[];
         return clients.map((client) => {
           client.name = client.name.toUpperCase();
-          registerLocaleData(localeES, 'es');
           let datePipe = new DatePipe('es');
           client.createAt = datePipe.transform(
             client.createAt,

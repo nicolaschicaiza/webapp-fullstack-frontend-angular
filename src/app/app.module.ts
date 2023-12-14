@@ -10,6 +10,10 @@ import { DirectivaComponent } from './directiva/directiva.component';
 import { ClientsComponent } from './clients/clients.component';
 import { RouterModule, Routes } from '@angular/router';
 import { FormComponent } from './clients/form.component';
+import { registerLocaleData } from '@angular/common';
+import localeES from '@angular/common/locales/es-CO';
+
+registerLocaleData(localeES, 'es');
 
 const routes: Routes = [
   {
