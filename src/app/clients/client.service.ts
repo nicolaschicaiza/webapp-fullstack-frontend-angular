@@ -17,22 +17,22 @@ export class ClientService {
     private router: Router,
   ) {}
 
-  getClients(): Observable<Client[]> {
-    return this.http.get<Client[]>(this.urlEndPoint).pipe(
-      tap((resp) => {
-        resp.forEach((client) => {
+  getClients(page: number): Observable<any> {
+    return this.http.get<Client[]>(`${this.urlEndPoint}/page/${page}`).pipe(
+      tap((resp: any) => {
+        (resp.content as Client[]).forEach((client) => {
           console.log('ClientService: tap 1', client.name);
         });
       }),
-      map((resp) => {
-        const clients = resp as Client[];
-        return clients.map((client) => {
+      map((resp: any) => {
+        (resp.content as Client[]).map((client) => {
           client.name = client.name.toUpperCase();
           return client;
         });
+        return resp;
       }),
-      tap((resp) => {
-        resp.forEach((client) => {
+      tap((resp: any) => {
+        (resp.content as Client[]).forEach((client) => {
           console.log('ClientService: tap 2', client.name);
         });
       }),
