@@ -1,4 +1,4 @@
-<ul *ngIf="pages?.length > 0" class="pagination">
+<ul *ngIf="pages?.length > 0" class="pagination" style="overflow: scroll">
   <li [ngClass]="paginator.first ? 'disabled page-item' : 'page-item'">
     <a class="page-link" [routerLink]="['/clients/page', 0]">Primera</a>
   </li>
