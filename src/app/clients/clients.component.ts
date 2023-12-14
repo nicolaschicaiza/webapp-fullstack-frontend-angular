@@ -21,6 +21,7 @@ export class ClientsComponent implements OnInit {
   ngOnInit() {
     this.activatedRoute.paramMap.subscribe((params) => {
       let page: number = +params.get('page') || 0;
+      console.log(page);
       this.clientService
         .getClients(page)
         .pipe(
