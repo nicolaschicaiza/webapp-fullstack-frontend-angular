@@ -54,9 +54,9 @@ export class FormComponent implements OnInit {
         );
       },
       error: (err) => {
-        this.errors = err.error.error as string[];
+        this.errors = err.error.errors as string[];
         console.error('Código del error desde el backend: ' + err.status);
-        console.error(err.error.error);
+        console.error(err.error.errors);
       },
     });
   }
@@ -72,9 +72,9 @@ export class FormComponent implements OnInit {
         );
       },
       error: (err) => {
-        this.errors = err.error.error as string[];
+        this.errors = err.error.errors as string[];
         console.error('Código del error desde el backend: ' + err.status);
-        console.error(err.error.error);
+        console.error(err.error.errors);
       },
     });
   }
