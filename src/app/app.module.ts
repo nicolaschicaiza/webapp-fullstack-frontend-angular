@@ -3,6 +3,9 @@ import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
@@ -14,6 +17,7 @@ import { PaginatorComponent } from './paginator/paginator.component';
 
 import { registerLocaleData } from '@angular/common';
 import localeES from '@angular/common/locales/es-CO';
+import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
 
 registerLocaleData(localeES, 'es');
 
@@ -60,12 +64,17 @@ const routes: Routes = [
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    BrowserAnimationsModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
   ],
   providers: [
     {
       provide: LOCALE_ID,
       useValue: 'es',
     },
+    { provide: MAT_DATE_LOCALE, useValue: 'es' },
   ],
   bootstrap: [AppComponent],
 })

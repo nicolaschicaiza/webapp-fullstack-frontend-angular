@@ -81,12 +81,19 @@
         <label for="createAt" class="col-form-label col-sm-2">Fecha</label>
         <div class="col-sm-6">
           <input
-            type="date"
-            class="form-control mb-3"
+            matInput
+            [matDatepicker]="picker"
+            class="form-control mb-3 me-3"
             name="createAt"
             [(ngModel)]="client.createAt"
-            #createAt="ngModel"
+            style="display: inline; width: 300px"
           />
+          <mat-hint>DD/MM/YYYY</mat-hint>
+          <mat-datepicker-toggle
+            matIconSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
           <!-- required -->
         </div>
       </div>
