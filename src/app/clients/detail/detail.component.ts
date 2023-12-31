@@ -23,9 +23,12 @@ export class DetailComponent implements OnInit {
     this.activatedRoute.params.subscribe((params) => {
       let id: number = +params['id'];
       if (id) {
-        this.clientService
-          .getClient(id)
-          .subscribe((client) => (this.client = client));
+        this.clientService.getClient(id).subscribe({
+          next: (client) => {
+            this.client = client;
+            console.log(client);
+          },
+        });
       }
     });
   }
