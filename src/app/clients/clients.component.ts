@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import Swal from 'sweetalert2';
 import { Client } from './client';
 import { ClientService } from './client.service';
+import { tap } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { ModalService } from './detail/modal.service';
 
 @Component({
   selector: 'app-clients',
@@ -9,13 +12,42 @@ import { ClientService } from './client.service';
 })
 export class ClientsComponent implements OnInit {
   clients: Client[] = [];
+  clientChoose: Client;
+  paginator: any;
 
-  constructor(private clientService: ClientService) {}
+  constructor(
+    private clientService: ClientService,
+    private activatedRoute: ActivatedRoute,
+    private modalService: ModalService,
+  ) {}
 
   ngOnInit() {
-    this.clientService.getClients().subscribe({
-      next: (rta) => (this.clients = rta),
-      error: (err) => console.error(err),
+    this.activatedRoute.paramMap.subscribe((params) => {
+      let page: number = +params.get('page') || 0;
+      console.log(page);
+      this.clientService
+        .getClients(page)
+        .pipe(
+          tap((resp) => {
+            console.log('ClientsComponent: tap 3');
+            (resp.content as Client[]).forEach((client) => {
+              console.log(client.name);
+            });
+          }),
+        )
+        .subscribe({
+          next: (resp) => {
+            this.clients = resp.content as Client[];
+            this.paginator = resp;
+          },
+        });
+    });
+    this.modalService.notificationUpload.subscribe({
+      next: (client: Client) => {
+        this.clients = this.clients.map((clientOriginal) =>
+          client.id == clientOriginal.id ? client : clientOriginal,
+        );
+      },
     });
   }
 
@@ -44,5 +76,10 @@ export class ClientsComponent implements OnInit {
         });
       }
     });
+  }
+
+  openModel(client: Client) {
+    this.clientChoose = client;
+    this.modalService.openModal();
   }
 }

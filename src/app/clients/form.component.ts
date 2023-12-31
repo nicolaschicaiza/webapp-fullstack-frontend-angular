@@ -11,6 +11,7 @@ import { ClientService } from './client.service';
 export class FormComponent implements OnInit {
   client: Client = new Client();
   title: string = 'Crear cliente';
+  errors: string[];
 
   constructor(
     private clientService: ClientService,
@@ -20,6 +21,14 @@ export class FormComponent implements OnInit {
 
   ngOnInit(): void {
     this.uploadClient();
+  }
+
+  onSubmit(): void {
+    if (this.client.id) {
+      this.update();
+      return;
+    }
+    this.create();
   }
 
   uploadClient(): void {
@@ -36,12 +45,18 @@ export class FormComponent implements OnInit {
   create(): void {
     this.clientService.createClient(this.client).subscribe({
       next: (client) => {
+        console.log(client);
         this.router.navigate(['/clients']);
         Swal.fire(
           'Nuevo cliente',
-          `Cliente ${client.name} creado con éxito!`,
+          `El cliente ${client.name} ha sido creado con éxito`,
           'success',
         );
+      },
+      error: (err) => {
+        this.errors = err.error.errors as string[];
+        console.error('Código del error desde el backend: ' + err.status);
+        console.error(err.error.errors);
       },
     });
   }
@@ -52,9 +67,14 @@ export class FormComponent implements OnInit {
         this.router.navigate(['/clients']);
         Swal.fire(
           'Cliente actualizado',
-          `Cliente ${client.name} actualizado con éxito!`,
+          `El cliente ${client.name} ha sido actualizado con éxito`,
           'success',
         );
+      },
+      error: (err) => {
+        this.errors = err.error.errors as string[];
+        console.error('Código del error desde el backend: ' + err.status);
+        console.error(err.error.errors);
       },
     });
   }

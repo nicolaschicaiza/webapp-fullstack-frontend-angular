@@ -1,3 +1,7 @@
+<app-detail-client
+  *ngIf="clientChoose"
+  [client]="clientChoose"
+></app-detail-client>
 <div class="card mb-3">
   <div class="card-header">Clientes</div>
   <div class="card-body">
@@ -17,7 +21,7 @@
     <table class="table table-striped" *ngIf="clients?.length > 0">
       <thead>
         <tr>
-          <th>#</th>
+          <th></th>
           <th>Nombre</th>
           <th>Apellido</th>
           <th>Email</th>
@@ -28,11 +32,29 @@
 
       <tbody>
         <tr *ngFor="let client of clients">
-          <td>{{ client.id }}</td>
+          <td>
+            <img
+              *ngIf="client?.photo; else noImage"
+              [src]="'http://localhost:8080/api/uploads/img/' + client.photo"
+              [alt]="client.photo"
+              class="img-thumbnail rounded"
+              (click)="openModel(client)"
+              style="width: 64px; cursor: pointer"
+            />
+            <ng-template #noImage>
+              <img
+                src="http://localhost:8080/images/no_user.png"
+                alt="Sin foto"
+                class="img-thumbnail rounded"
+                (click)="openModel(client)"
+                style="width: 64px; cursor: pointer"
+              />
+            </ng-template>
+          </td>
           <td>{{ client.name }}</td>
-          <td>{{ client.lastname }}</td>
+          <td>{{ client.lastname | uppercase }}</td>
           <td>{{ client.email }}</td>
-          <td>{{ client.createAt }}</td>
+          <td>{{ client.createAt | date: "EEEE dd, MMMM yyy" }}</td>
           <td>
             <button
               type="button"
@@ -54,5 +76,6 @@
         </tr>
       </tbody>
     </table>
+    <paginator-nav *ngIf="paginator" [paginator]="paginator"></paginator-nav>
   </div>
 </div>

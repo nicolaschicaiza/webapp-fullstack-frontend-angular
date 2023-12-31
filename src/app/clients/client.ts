@@ -3,5 +3,6 @@ export class Client {
   name: string;
   lastname: string;
   email: string;
-  createAt: string
+  createAt: string;
+  photo: string;
 }

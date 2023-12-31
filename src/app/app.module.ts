@@ -1,15 +1,26 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
+import { RouterModule, Routes } from '@angular/router';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatFormFieldModule } from '@angular/material/form-field';
 
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { DirectivaComponent } from './directiva/directiva.component';
 import { ClientsComponent } from './clients/clients.component';
-import { RouterModule, Routes } from '@angular/router';
 import { FormComponent } from './clients/form.component';
+import { PaginatorComponent } from './paginator/paginator.component';
+
+import { registerLocaleData } from '@angular/common';
+import localeES from '@angular/common/locales/es-CO';
+import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
+import { DetailComponent } from './clients/detail/detail.component';
+
+registerLocaleData(localeES, 'es');
 
 const routes: Routes = [
   {
@@ -23,6 +34,10 @@ const routes: Routes = [
   },
   {
     path: 'clients',
+    component: ClientsComponent,
+  },
+  {
+    path: 'clients/page/:page',
     component: ClientsComponent,
   },
   {
@@ -43,14 +58,26 @@ const routes: Routes = [
     DirectivaComponent,
     ClientsComponent,
     FormComponent,
+    PaginatorComponent,
+    DetailComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),
     BrowserModule,
     HttpClientModule,
     FormsModule,
+    BrowserAnimationsModule,
+    MatDatepickerModule,
+    MatFormFieldModule,
+    MatNativeDateModule,
   ],
-  providers: [],
+  providers: [
+    {
+      provide: LOCALE_ID,
+      useValue: 'es',
+    },
+    { provide: MAT_DATE_LOCALE, useValue: 'es' },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
