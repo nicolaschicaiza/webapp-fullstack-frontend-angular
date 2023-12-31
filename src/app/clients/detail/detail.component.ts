@@ -3,6 +3,7 @@ import { Client } from '../client';
 import { ClientService } from '../client.service';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
+import { HttpEventType } from '@angular/common/http';
 
 @Component({
   selector: 'app-detail-client',
@@ -13,6 +14,7 @@ export class DetailComponent implements OnInit {
   client: Client;
   title: string = 'Detalle del cliente';
   photo: File;
+  progress: number = 0;
 
   constructor(
     private clientService: ClientService,
@@ -53,13 +55,19 @@ export class DetailComponent implements OnInit {
       this.clientService
         .uploadPhoto(this.photo, this.client.id.toString())
         .subscribe({
-          next: (client) => {
-            this.client = client;
-            Swal.fire(
-              'La foto se ha subido correctamente',
-              `La foto se ha subido con éxito: ${client.photo}`,
-              'success',
-            );
+          next: (event) => {
+            if (event.type === HttpEventType.UploadProgress) {
+              this.progress = Math.round((event.loaded / event.total) * 100);
+            } else if (event.type === HttpEventType.Response) {
+              let response: any = event.body;
+              this.client = response.client as Client;
+              Swal.fire(
+                'La foto se ha subido correctamente',
+                `La foto se ha subido con éxito: ${this.client.photo}`,
+                'success',
+              );
+              this.progress = 0;
+            }
           },
         });
     }

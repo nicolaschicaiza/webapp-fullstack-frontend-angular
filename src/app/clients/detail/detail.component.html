@@ -12,7 +12,7 @@
               {{ client.createAt | date: "fullDate" }}
             </li>
           </ul>
-          <div class="input-group">
+          <div class="input-group mb-3">
             <input
               type="file"
               class="form-control"
@@ -30,6 +30,20 @@
             >
               Subir
             </button>
+          </div>
+          <div
+            *ngIf="progress > 0"
+            class="progress"
+            role="progressbar"
+            aria-label="Basic example"
+            attr.aria-valuenow="{{ progress }}"
+            aria-valuemin="0"
+            aria-valuemax="100"
+            style="height: 40px"
+          >
+            <div class="progress-bar" [ngStyle]="{ width: progress + '%' }">
+              {{ progress }} %
+            </div>
           </div>
         </div>
         <div class="col-sm">
