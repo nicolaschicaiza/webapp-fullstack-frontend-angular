@@ -21,7 +21,7 @@
     <table class="table table-striped" *ngIf="clients?.length > 0">
       <thead>
         <tr>
-          <th>#</th>
+          <th></th>
           <th>Nombre</th>
           <th>Apellido</th>
           <th>Email</th>
@@ -33,13 +33,23 @@
       <tbody>
         <tr *ngFor="let client of clients">
           <td>
-            <button
-              type="button"
-              class="btn btn-primary btn-sm"
+            <img
+              *ngIf="client?.photo; else noImage"
+              [src]="'http://localhost:8080/api/uploads/img/' + client.photo"
+              [alt]="client.photo"
+              class="img-thumbnail rounded"
               (click)="openModel(client)"
-            >
-              {{ client.id }}
-            </button>
+              style="width: 64px; cursor: pointer"
+            />
+            <ng-template #noImage>
+              <img
+                src="http://localhost:8080/images/no_user.png"
+                alt="Sin foto"
+                class="img-thumbnail rounded"
+                (click)="openModel(client)"
+                style="width: 64px; cursor: pointer"
+              />
+            </ng-template>
           </td>
           <td>{{ client.name }}</td>
           <td>{{ client.lastname | uppercase }}</td>
