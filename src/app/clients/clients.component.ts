@@ -42,6 +42,13 @@ export class ClientsComponent implements OnInit {
           },
         });
     });
+    this.modalService.notificationUpload.subscribe({
+      next: (client: Client) => {
+        this.clients = this.clients.map((clientOriginal) =>
+          client.id == clientOriginal.id ? client : clientOriginal,
+        );
+      },
+    });
   }
 
   delete(client: Client): void {

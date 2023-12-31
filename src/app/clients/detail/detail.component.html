@@ -63,13 +63,22 @@
               </div>
               <div class="col-sm">
                 <img
-                  *ngIf="client?.photo"
+                  *ngIf="client?.photo; else noImage"
                   [src]="
                     'http://localhost:8080/api/uploads/img/' + client.photo
                   "
                   [alt]="client.photo"
                   class="img-thumbnail rounded"
                 />
+                <ng-template #noImage>
+                  <img
+                    src="
+                      http://localhost:8080/images/no_user.png
+                    "
+                    alt="Sin foto"
+                    class="img-thumbnail rounded"
+                  />
+                </ng-template>
               </div>
             </div>
           </div>
