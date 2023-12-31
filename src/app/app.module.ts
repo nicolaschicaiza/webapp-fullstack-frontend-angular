@@ -48,10 +48,6 @@ const routes: Routes = [
     path: 'clients/form/:id',
     component: FormComponent,
   },
-  {
-    path: 'clients/see/:id',
-    component: DetailComponent,
-  },
 ];
 
 @NgModule({

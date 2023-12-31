@@ -11,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ClientsComponent implements OnInit {
   clients: Client[] = [];
+  clientChoose: Client;
   paginator: any;
 
   constructor(
@@ -66,5 +67,9 @@ export class ClientsComponent implements OnInit {
         });
       }
     });
+  }
+
+  openModel(client: Client) {
+    this.clientChoose = client;
   }
 }

@@ -1,3 +1,7 @@
+<app-detail-client
+  *ngIf="clientChoose"
+  [client]="clientChoose"
+></app-detail-client>
 <div class="card mb-3">
   <div class="card-header">Clientes</div>
   <div class="card-body">
@@ -31,8 +35,8 @@
           <td>
             <button
               type="button"
-              [routerLink]="['/clients/see', client.id]"
               class="btn btn-primary btn-sm"
+              (click)="openModel(client)"
             >
               {{ client.id }}
             </button>

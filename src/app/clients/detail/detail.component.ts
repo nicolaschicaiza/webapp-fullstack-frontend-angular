@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Client } from '../client';
 import { ClientService } from '../client.service';
 import { ActivatedRoute } from '@angular/router';
@@ -11,29 +11,14 @@ import { HttpEventType } from '@angular/common/http';
   styleUrls: ['./detail.component.css'],
 })
 export class DetailComponent implements OnInit {
-  client: Client;
+  @Input() client: Client;
   title: string = 'Detalle del cliente';
   photo: File;
   progress: number = 0;
 
-  constructor(
-    private clientService: ClientService,
-    private activatedRoute: ActivatedRoute,
-  ) {}
+  constructor(private clientService: ClientService) {}
 
-  ngOnInit(): void {
-    this.activatedRoute.params.subscribe((params) => {
-      let id: number = +params['id'];
-      if (id) {
-        this.clientService.getClient(id).subscribe({
-          next: (client) => {
-            this.client = client;
-            console.log(client);
-          },
-        });
-      }
-    });
-  }
+  ngOnInit(): void {}
 
   selectFile(event: any) {
     this.photo = event.target.files[0];
