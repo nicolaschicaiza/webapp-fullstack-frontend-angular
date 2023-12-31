@@ -18,6 +18,7 @@ import { PaginatorComponent } from './paginator/paginator.component';
 import { registerLocaleData } from '@angular/common';
 import localeES from '@angular/common/locales/es-CO';
 import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
+import { DetailComponent } from './clients/detail/detail.component';
 
 registerLocaleData(localeES, 'es');
 
@@ -47,6 +48,10 @@ const routes: Routes = [
     path: 'clients/form/:id',
     component: FormComponent,
   },
+  {
+    path: 'clients/see/:id',
+    component: DetailComponent,
+  },
 ];
 
 @NgModule({
@@ -58,6 +63,7 @@ const routes: Routes = [
     ClientsComponent,
     FormComponent,
     PaginatorComponent,
+    DetailComponent,
   ],
   imports: [
     RouterModule.forRoot(routes),

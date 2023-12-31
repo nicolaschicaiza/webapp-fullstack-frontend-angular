@@ -28,7 +28,15 @@
 
       <tbody>
         <tr *ngFor="let client of clients">
-          <td>{{ client.id }}</td>
+          <td>
+            <button
+              type="button"
+              [routerLink]="['/clients/see', client.id]"
+              class="btn btn-primary btn-sm"
+            >
+              {{ client.id }}
+            </button>
+          </td>
           <td>{{ client.name }}</td>
           <td>{{ client.lastname | uppercase }}</td>
           <td>{{ client.email }}</td>
