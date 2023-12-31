@@ -4,6 +4,7 @@ import { ClientService } from '../client.service';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { HttpEventType } from '@angular/common/http';
+import { ModalService } from './modal.service';
 
 @Component({
   selector: 'app-detail-client',
@@ -16,7 +17,10 @@ export class DetailComponent implements OnInit {
   photo: File;
   progress: number = 0;
 
-  constructor(private clientService: ClientService) {}
+  constructor(
+    private clientService: ClientService,
+    public modalService: ModalService,
+  ) {}
 
   ngOnInit(): void {}
 
@@ -56,5 +60,11 @@ export class DetailComponent implements OnInit {
           },
         });
     }
+  }
+
+  closeModal() {
+    this.photo = null;
+    this.progress = 0;
+    this.modalService.closeModal();
   }
 }

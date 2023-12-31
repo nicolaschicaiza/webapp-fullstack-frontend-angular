@@ -4,6 +4,7 @@ import { Client } from './client';
 import { ClientService } from './client.service';
 import { tap } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { ModalService } from './detail/modal.service';
 
 @Component({
   selector: 'app-clients',
@@ -17,6 +18,7 @@ export class ClientsComponent implements OnInit {
   constructor(
     private clientService: ClientService,
     private activatedRoute: ActivatedRoute,
+    private modalService: ModalService,
   ) {}
 
   ngOnInit() {
@@ -71,5 +73,6 @@ export class ClientsComponent implements OnInit {
 
   openModel(client: Client) {
     this.clientChoose = client;
+    this.modalService.openModal();
   }
 }
